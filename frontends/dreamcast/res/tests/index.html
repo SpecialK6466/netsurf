@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NetSurf Dreamcast Test Suite</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 10px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+        }
+        .test-list {
+            list-style: none;
+            padding: 0;
+        }
+        .test-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-left: 4px solid #007acc;
+        }
+        .test-list a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #007acc;
+        }
+        .test-list a:hover {
+            text-decoration: underline;
+        }
+        .test-list .desc {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .info {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NetSurf Dreamcast Test Suite</h1>
+    
+    <div class="info">
+        <strong>Controls:</strong> Analog stick = cursor, A = click, Y = keyboard, D-pad = scroll
+    </div>
+    
+    <ul class="test-list">
+        <li>
+            <a href="basic.html">Basic HTML</a>
+            <div class="desc">Headings, paragraphs, lists, links, text formatting</div>
+        </li>
+        <li>
+            <a href="tables.html">Tables</a>
+            <div class="desc">Simple tables, colspan/rowspan, nested tables</div>
+        </li>
+        <li>
+            <a href="forms.html">Forms &amp; Input</a>
+            <div class="desc">Text fields, buttons, checkboxes - test the on-screen keyboard!</div>
+        </li>
+        <li>
+            <a href="images.html">Images</a>
+            <div class="desc">PNG, JPEG, GIF formats, transparency, sizing</div>
+        </li>
+        <li>
+            <a href="css.html">CSS Layout</a>
+            <div class="desc">Box model, floats, positioning, colors</div>
+        </li>
+        <li>
+            <a href="stress-test.html">Comprehensive Stress Test</a>
+            <div class="desc">DOM, CSS, JS, tables, forms, images - balanced for Dreamcast limits</div>
+        </li>
+    </ul>
+    
+    <p><a href="file:///rd/en/welcome.html">&larr; Back to Welcome</a></p>
+</body>
+</html>

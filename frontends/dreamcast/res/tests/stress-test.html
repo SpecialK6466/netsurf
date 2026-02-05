@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NetSurf Dreamcast Comprehensive Stress Test</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 640px;
+            margin: 10px auto;
+            padding: 0 10px;
+            background: #f0f0f0;
+            color: #000;
+            line-height: 1.4;
+        }
+        h1 {
+            color: #007acc;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+            font-size: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .section {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .stress-item {
+            background: #e0e0e0;
+            border: 1px solid #999;
+            padding: 5px;
+            margin: 2px 0;
+            font-size: 12px;
+        }
+        .large-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+        .large-table td {
+            border: 1px solid #ccc;
+            padding: 2px;
+            text-align: center;
+        }
+        .stress-form input, .stress-form select, .stress-form textarea {
+            width: 100%;
+            margin: 2px 0;
+            font-size: 12px;
+            padding: 2px;
+        }
+        .performance-metrics {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+        .action-link {
+            background: #007acc;
+            color: white;
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #005a9e;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .action-link:visited { color: white; }
+        .action-link:hover { background: #005a9e; }
+        /* Additional CSS stress rules */
+        .css-stress-1 { color: red; }
+        .css-stress-2 { color: blue; }
+        .css-stress-3 { background: yellow; }
+        .css-stress-4 { font-weight: bold; }
+        .css-stress-5 { text-decoration: underline; }
+        .css-stress-6 { border: 1px solid black; }
+        .css-stress-7 { padding: 5px; }
+        .css-stress-8 { margin: 5px; }
+        .css-stress-9 { float: left; width: 100px; }
+        .css-stress-10 { clear: both; }
+        /* More complex selectors */
+        .section .stress-item:hover { background: #ddd; }
+        .large-table tr:nth-child(even) { background: #f9f9f9; }
+        .stress-form input[type="text"]:focus { border-color: #007acc; }
+        /* Gradient backgrounds for stress */
+        .gradient-stress { background: linear-gradient(to right, #ff0000, #00ff00, #0000ff); color: white; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>NetSurf Dreamcast Comprehensive Stress Test</h1>
+    <p><a href="index.html">&larr; Back to Test Index</a></p>
+
+    <div class="performance-metrics" id="metrics">
+        <strong>Performance Metrics:</strong><br>
+        Page Load Time: <span id="load-time">Calculating...</span><br>
+        DOM Creation Time: <span id="dom-time">Pending...</span><br>
+        JS Computation Time: <span id="js-time">Pending...</span><br>
+        Memory Status: <span id="memory">Unknown</span>
+    </div>
+
+    <div class="performance-metrics" id="debug" style="display:none;">
+        <strong>JS Debug Log:</strong><br>
+        <div id="debug-log"></div>
+    </div>
+
+    <!-- DOM Stress Section -->
+    <!-- Note: Using styled div elements instead of buttons to avoid ALL NetSurf warnings -->
+    <!-- NetSurf classifies both <button> and <input type="button"> as form gadgets that trigger warnings -->
+    <div class="section">
+        <h2>DOM Stress Test</h2>
+        <p>Creating 200 dynamic elements to test DOM manipulation limits on Dreamcast (16MB RAM, 200MHz CPU).</p>
+        <div id="dom-stress-container">
+            <!-- Dynamic elements will be inserted here -->
+        </div>
+        <a class="action-link" href="stress-test.html#cmd=create">Create DOM Elements</a>
+        <a class="action-link" href="stress-test.html#cmd=clear">Clear Elements</a>
+    </div>
+
+    <!-- CSS Stress Section -->
+    <div class="section">
+        <h2>CSS Rendering Stress Test</h2>
+        <p>Testing complex CSS rules and selectors with nested elements.</p>
+        <div class="css-stress-1 css-stress-4 css-stress-6 css-stress-7 css-stress-8">
+            <span class="css-stress-2 css-stress-5">Nested styled text</span>
+            <div class="css-stress-3 css-stress-6 css-stress-7">Another styled div</div>
+        </div>
+        <div class="gradient-stress">Gradient background stress</div>
+        <div class="css-stress-9">Float left</div>
+        <div class="css-stress-9">Another float</div>
+        <div class="css-stress-10"></div>
+    </div>
+
+    <!-- JS Computation Stress Section -->
+    <!-- Note: Styled div with onclick works without any NetSurf form warnings -->
+    <div class="section">
+        <h2>JavaScript Computation Stress Test</h2>
+        <p>Running intensive JS operations: loops, array manipulation, string operations.</p>
+        <div id="js-results">Click to run stress test</div>
+        <a class="action-link" href="stress-test.html#cmd=js">Run JS Stress Test</a>
+    </div>
+
+    <!-- Large Table Stress Section -->
+    <!-- Note: Styled div avoids both "button can not be activated" and "form can not be submitted" warnings -->
+    <div class="section">
+        <h2>Large Table Stress Test</h2>
+        <p>20x20 table to test table rendering performance (400 cells).</p>
+        <table class="large-table" id="stress-table">
+            <!-- Table will be populated by JS to avoid large static HTML -->
+        </table>
+        <a class="action-link" href="stress-test.html#cmd=table">Create Large Table</a>
+    </div>
+
+    <!-- Form Stress Section -->
+    <div class="section">
+        <h2>Form Stress Test</h2>
+        <p>Multiple form elements to test input handling.</p>
+        <form class="stress-form" id="stress-form">
+            <input type="text" placeholder="Text input 1"><br>
+            <input type="text" placeholder="Text input 2"><br>
+            <input type="email" placeholder="Email input"><br>
+            <textarea rows="2" placeholder="Textarea"></textarea><br>
+            <select><option>Option 1</option><option>Option 2</option></select><br>
+            <input type="checkbox"> Checkbox 1<br>
+            <input type="checkbox" checked> Checkbox 2<br>
+            <input type="radio" name="radio"> Radio 1<br>
+            <input type="radio" name="radio" checked> Radio 2<br>
+            <input type="range" min="0" max="100" value="50"><br>
+            <a class="action-link" href="stress-test.html#cmd=alert">Button</a>
+            <!-- Note: Using styled div instead of button/input to avoid NetSurf warnings -->
+            <!-- Both <button> and <input type="button"> trigger warnings in NetSurf -->
+        </form>
+    </div>
+
+    <!-- Image Stress Section -->
+    <div class="section">
+        <h2>Image Rendering Stress Test</h2>
+        <p>Multiple small images to test image decoding and rendering.</p>
+        <!-- Small 16x16 PNG images via data URIs -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABFJREFUOE9jYBgFoyEwMQAAGXwC+8e4J7EAAAAASUVORK5CYII=" alt="small red square" width="16" height="16">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABFJREFUOE9jYBgFoyEwMQAAGXwC+8e4J7EAAAAASUVORK5CYII=" alt="small green square" width="16" height="16">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABFJREFUOE9jYBgFoyEwMQAAGXwC+8e4J7EAAAAASUVORK5CYII=" alt="small blue square" width="16" height="16">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABFJREFUOE9jYBgFoyEwMQAAGXwC+8e4J7EAAAAASUVORK5CYII=" alt="small yellow square" width="16" height="16">
+    </div>
+
+    <div class="section">
+        <p class="pass">✓ If this page loads and interactive elements work, NetSurf handles stress well on Dreamcast!</p>
+        <p><em>Note: Designed for Dreamcast constraints - limited RAM and CPU. Total content kept small to avoid OOM.</em></p>
+        <p><em>Button Fix: Using <a> links with javascript: URLs because NetSurf disables form buttons and may not fire onclick for generic elements.</em></p>
+    </div>
+
+    <script type="text/javascript">
+        // Performance tracking variables
+        var pageLoadStart = Date.now();
+        var domCreationTime = 0;
+        var jsComputationTime = 0;
+        var domStressCount = 0;
+
+        function dbg(msg) {
+            var dbgBox = document.getElementById('debug');
+            var log = document.getElementById('debug-log');
+            if (!dbgBox || !log) return;
+            dbgBox.style.display = 'block';
+            log.innerHTML += msg + '<br>';
+        }
+
+        // Update load time when page is ready
+        window.onload = function() {
+            document.getElementById('load-time').textContent = (Date.now() - pageLoadStart) + 'ms';
+
+            // NetSurf can be unreliable for onclick / javascript: URL activation.
+            // Instead, use a hash command in the URL and run the requested action on load.
+            var hash = '';
+            try {
+                hash = (window.location && window.location.hash) ? window.location.hash : '';
+            } catch (e) {
+                hash = '';
+            }
+
+            if (hash && hash.indexOf('#cmd=') === 0) {
+                var cmd = hash.substring(5);
+                dbg('onload: cmd=' + cmd);
+                if (cmd === 'create') {
+                    createDomElements();
+                } else if (cmd === 'clear') {
+                    clearDomElements();
+                } else if (cmd === 'js') {
+                    runJsStressTest();
+                } else if (cmd === 'table') {
+                    createLargeTable();
+                } else if (cmd === 'alert') {
+                    alert('Form button clicked!');
+                }
+
+                // Try to clear the hash to avoid re-running on refresh.
+                try {
+                    window.location.hash = '';
+                } catch (e) {
+                    /* ignore */
+                }
+            }
+        };
+
+        // DOM Stress Test Function
+        function createDomElements() {
+            var start = Date.now();
+            var container = document.getElementById('dom-stress-container');
+            dbg('createDomElements(): start');
+            // Clear existing
+            container.innerHTML = '';
+            // NetSurf/libdom can be picky about incremental DOM updates.
+            // Use a single innerHTML write for better compatibility.
+            var html = '';
+            for (var i = 0; i < 200; i++) {
+                html += '<div class="stress-item">Dynamic Element ' + (i + 1) + ' - Testing DOM limits on Dreamcast</div>';
+            }
+            container.innerHTML = html;
+            domStressCount = 200;
+            domCreationTime = Date.now() - start;
+            document.getElementById('dom-time').textContent = domCreationTime + 'ms';
+            document.getElementById('memory').textContent = 'DOM created (' + domStressCount + ' elements)';
+            dbg('createDomElements(): done, ' + domStressCount + ' elements');
+        }
+
+        function clearDomElements() {
+            dbg('clearDomElements(): start');
+            document.getElementById('dom-stress-container').innerHTML = '';
+            domStressCount = 0;
+            document.getElementById('dom-time').textContent = 'Cleared';
+            dbg('clearDomElements(): done');
+        }
+
+        // JS Stress Test Function
+        function runJsStressTest() {
+            var start = Date.now();
+            var results = document.getElementById('js-results');
+            results.innerHTML = 'Running stress test...<br>';
+            dbg('runJsStressTest(): start');
+
+            // Array manipulation stress
+            var arr = [];
+            for (var i = 0; i < 1000; i++) {
+                arr.push(Math.sin(i) * Math.cos(i));
+            }
+
+            // String concatenation stress
+            var str = '';
+            for (var i = 0; i < 500; i++) {
+                str += 'Stress string ' + i + ' ';
+            }
+
+            // Loop stress
+            var sum = 0;
+            for (var i = 0; i < 10000; i++) {
+                sum += i;
+            }
+
+            // DOM query stress
+            // NetSurf may not support querySelectorAll() reliably, so track the count ourselves.
+            results.innerHTML += 'Array ops: ' + arr.length + ' items<br>';
+            results.innerHTML += 'String length: ' + str.length + '<br>';
+            results.innerHTML += 'Sum calculation: ' + sum + '<br>';
+            results.innerHTML += 'DOM stress elements: ' + domStressCount + ' elements<br>';
+
+            jsComputationTime = Date.now() - start;
+            document.getElementById('js-time').textContent = jsComputationTime + 'ms';
+            dbg('runJsStressTest(): done in ' + jsComputationTime + 'ms');
+        }
+
+        // Large Table Creation Function
+        function createLargeTable() {
+            var start = Date.now();
+            var table = document.getElementById('stress-table');
+            dbg('createLargeTable(): start');
+            table.innerHTML = ''; // Clear
+
+            // Use a single innerHTML write for better compatibility.
+            var t = '';
+            for (var i = 0; i < 20; i++) {
+                t += '<tr>';
+                for (var j = 0; j < 20; j++) {
+                    t += '<td>' + (i * 20 + j + 1) + '</td>';
+                }
+                t += '</tr>';
+            }
+            table.innerHTML = t;
+
+            var time = Date.now() - start;
+            document.getElementById('memory').textContent = 'Table created (400 cells) in ' + time + 'ms';
+            dbg('createLargeTable(): done in ' + time + 'ms');
+        }
+    </script>
+</body>
+</html>

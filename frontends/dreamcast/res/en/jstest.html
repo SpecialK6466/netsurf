@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>JavaScript Test - NetSurf Dreamcast</title>
+<style type="text/css">
+body { font-family: sans-serif; margin: 1em; background: #fff; color: #000; }
+h1 { color: #333; }
+.test { margin: 0.5em 0; padding: 0.5em; border: 1px solid #ccc; }
+.pass { background: #cfc; border-color: #090; }
+.fail { background: #fcc; border-color: #900; }
+.pending { background: #ffc; border-color: #990; }
+#output { margin-top: 1em; padding: 1em; background: #eef; border: 1px solid #99c; }
+button { padding: 0.5em 1em; margin: 0.2em; font-size: 100%; }
+</style>
+</head>
+<body>
+
+<h1>JavaScript Test Page</h1>
+<p>This page tests Duktape JavaScript execution on Dreamcast.</p>
+
+<h2>Test Results</h2>
+<div id="results">
+<div id="test1" class="test pending">Test 1: Basic JS execution - Pending</div>
+<div id="test2" class="test pending">Test 2: DOM getElementById - Pending</div>
+<div id="test3" class="test pending">Test 3: innerHTML modification - Pending</div>
+<div id="test4" class="test pending">Test 4: addEventListener API - Pending</div>
+<div id="test5" class="test pending">Test 5: Math operations - Pending</div>
+<div id="test6" class="test pending">Test 6: setTimeout - Pending</div>
+</div>
+
+<h2>API Availability Tests</h2>
+<p><em>Note: NetSurf's duktape fires DOM events but preventDefault() doesn't stop default browser actions. Interactive click handlers won't work as expected.</em></p>
+
+<h2>Console Output</h2>
+<div id="output">Waiting for JavaScript...</div>
+
+<script type="text/javascript">
+// Simple logging function that writes to the output div
+var logLines = [];
+function log(msg) {
+    logLines.push(msg);
+    var out = document.getElementById('output');
+    if (out) {
+        out.innerHTML = logLines.join('<br>');
+    }
+}
+
+// Test tracking
+var passed = 0;
+var failed = 0;
+
+function setResult(id, success, msg) {
+    var el = document.getElementById(id);
+    if (el) {
+        el.className = 'test ' + (success ? 'pass' : 'fail');
+        el.innerHTML = msg;
+        if (success) passed++; else failed++;
+    }
+}
+
+// Test 1: Basic execution
+log('Starting JavaScript tests...');
+try {
+    var x = 1 + 1;
+    if (x === 2) {
+        setResult('test1', true, 'Test 1: Basic JS execution - PASS (1+1=' + x + ')');
+        log('Test 1 passed: basic arithmetic works');
+    } else {
+        setResult('test1', false, 'Test 1: Basic JS execution - FAIL (expected 2, got ' + x + ')');
+    }
+} catch(e) {
+    setResult('test1', false, 'Test 1: Basic JS execution - FAIL: ' + e);
+    log('Test 1 error: ' + e);
+}
+
+// Test 2: DOM getElementById
+try {
+    var el = document.getElementById('test2');
+    if (el) {
+        setResult('test2', true, 'Test 2: DOM getElementById - PASS');
+        log('Test 2 passed: getElementById works');
+    } else {
+        setResult('test2', false, 'Test 2: DOM getElementById - FAIL (returned null)');
+    }
+} catch(e) {
+    setResult('test2', false, 'Test 2: DOM getElementById - FAIL: ' + e);
+    log('Test 2 error: ' + e);
+}
+
+// Test 3: innerHTML modification
+try {
+    var testDiv = document.getElementById('test3');
+    if (testDiv) {
+        testDiv.innerHTML = 'Test 3: innerHTML modification - PASS';
+        testDiv.className = 'test pass';
+        log('Test 3 passed: innerHTML modification works');
+        passed++;
+    }
+} catch(e) {
+    setResult('test3', false, 'Test 3: innerHTML modification - FAIL: ' + e);
+    log('Test 3 error: ' + e);
+}
+
+// Test 4: Check if addEventListener API exists
+try {
+    var testEl = document.getElementById('test4');
+    if (testEl && typeof testEl.addEventListener === 'function') {
+        setResult('test4', true, 'Test 4: addEventListener API - PASS (API exists)');
+        log('Test 4 passed: addEventListener API is available');
+    } else {
+        setResult('test4', false, 'Test 4: addEventListener API - FAIL (not a function)');
+        log('Test 4 failed: addEventListener not available');
+    }
+} catch(e) {
+    setResult('test4', false, 'Test 4: addEventListener API - FAIL: ' + e);
+    log('Test 4 error: ' + e);
+}
+
+// Test 5: Math operations
+try {
+    var a = Math.floor(3.7);
+    var b = Math.sqrt(16);
+    var c = Math.pow(2, 8);
+    if (a === 3 && b === 4 && c === 256) {
+        setResult('test5', true, 'Test 5: Math operations - PASS (floor='+a+', sqrt='+b+', pow='+c+')');
+        log('Test 5 passed: Math functions work');
+    } else {
+        setResult('test5', false, 'Test 5: Math operations - FAIL');
+    }
+} catch(e) {
+    setResult('test5', false, 'Test 5: Math operations - FAIL: ' + e);
+    log('Test 5 error: ' + e);
+}
+
+// Test 6: Check if setTimeout exists (async capability)
+try {
+    if (typeof setTimeout === 'function') {
+        var timeoutFired = false;
+        setTimeout(function() {
+            timeoutFired = true;
+            setResult('test6', true, 'Test 6: setTimeout - PASS (callback executed)');
+            log('Test 6 passed: setTimeout callback fired');
+        }, 100);
+        log('Test 6: setTimeout scheduled, waiting...');
+    } else {
+        setResult('test6', false, 'Test 6: setTimeout - FAIL (not available)');
+        log('Test 6 failed: setTimeout not available');
+    }
+} catch(e) {
+    setResult('test6', false, 'Test 6: setTimeout - FAIL: ' + e);
+    log('Test 6 error: ' + e);
+}
+
+log('Tests complete. Passed: ' + passed + ', Failed: ' + failed);
+</script>
+
+<p><a href="file:///rd/en/welcome.html">Back to Welcome Page</a></p>
+
+</body>
+</html>

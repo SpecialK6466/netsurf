@@ -1,0 +1,85 @@
+# NetSurf Dreamcast frontend toolchain overrides
+#
+# Uses the KallistiOS wrappers so include/lib paths are correct for KOS/kos-ports.
+
+CC     := kos-cc
+CXX    := kos-c++
+AR     := sh-elf-ar
+RANLIB := sh-elf-ranlib
+STRIP  := sh-elf-strip
+OBJCOPY := sh-elf-objcopy
+
+GENROMFS := $(KOS_BASE)/utils/genromfs/genromfs
+BIN2O    := $(KOS_BASE)/utils/bin2o/bin2o
+
+# NetSurf dependency libraries for Dreamcast are installed separately from kos-ports.
+# Point pkg-config at that prefix so top-level NetSurf Makefile can find libcss/libdom/etc.
+NETSURF_DC_LIB_PREFIX ?= /opt/toolchains/dc/netsurf-libs
+
+# Repo root (defaults to parent of netsurf/ when building from the netsurf directory)
+NSDC_REPO_ROOT ?= $(abspath ..)
+
+# Make pkg-config, if present, search kos-ports first (mirrors build_netsurf_kos.sh)
+PKG_CONFIG ?= pkg-config
+PKG_CONFIG_PATH ?=
+# Provide Dreamcast-local pkg-config metadata for libraries that don't ship .pc files
+NSDC_REPO_CURL_PKGCFG := $(NSDC_REPO_ROOT)/curl/inst/lib/pkgconfig
+NSDC_REPO_CARES_PKGCFG := $(NSDC_REPO_ROOT)/c-ares/inst/lib/pkgconfig
+NSDC_REPO_MBEDTLS_PKGCFG := $(NSDC_REPO_ROOT)/mbedtls/inst/lib/pkgconfig
+ifneq ($(wildcard $(NSDC_REPO_CURL_PKGCFG)),)
+PKG_CONFIG_PATH := frontends/dreamcast/pkgconfig:$(NETSURF_DC_LIB_PREFIX)/lib/pkgconfig:$(NSDC_REPO_CURL_PKGCFG):$(NSDC_REPO_CARES_PKGCFG):$(NSDC_REPO_MBEDTLS_PKGCFG):$(KOS_PORTS)/expat/inst/lib/pkgconfig:$(KOS_PORTS)/freetype/inst/lib/pkgconfig:$(KOS_PORTS)/libpng/inst/lib/pkgconfig:$(KOS_PORTS)/libjpeg/inst/lib/pkgconfig:$(KOS_PORTS)/zlib/inst/lib/pkgconfig:$(PKG_CONFIG_PATH)
+else
+PKG_CONFIG_PATH := frontends/dreamcast/pkgconfig:$(NETSURF_DC_LIB_PREFIX)/lib/pkgconfig:$(NSDC_REPO_CARES_PKGCFG):$(NSDC_REPO_MBEDTLS_PKGCFG):$(KOS_PORTS)/expat/inst/lib/pkgconfig:$(KOS_PORTS)/freetype/inst/lib/pkgconfig:$(KOS_PORTS)/libpng/inst/lib/pkgconfig:$(KOS_PORTS)/libjpeg/inst/lib/pkgconfig:$(KOS_PORTS)/zlib/inst/lib/pkgconfig:$(PKG_CONFIG_PATH)
+endif
+
+# Ensure pkg-config queries run during Makefile parsing see PKG_CONFIG_PATH.
+# (GNU make's $(shell ...) does not consistently inherit exported vars in all environments.)
+PKG_CONFIG := env PKG_CONFIG_PATH="$(PKG_CONFIG_PATH)" $(PKG_CONFIG)
+
+# Provide absolute include/lib search paths for Dreamcast builds.
+CFLAGS += -Dnsframebuffer
+CFLAGS += -I$(NETSURF_DC_LIB_PREFIX)/include
+LDFLAGS += -L$(NETSURF_DC_LIB_PREFIX)/lib
+
+# c-ares enables internal thread-safety by default and curl's resolver glue may
+# use pthread primitives when built with ares. KOS provides pthreads as an addon
+# library, so ensure we link it.
+LDFLAGS += -L$(KOS_BASE)/addons/lib/$(KOS_ARCH) -lpthread
+
+# c-ares (async DNS) for libcurl. Only add paths if the in-repo install exists.
+ifneq ($(wildcard $(NSDC_REPO_ROOT)/c-ares/inst/include),)
+CFLAGS += -I$(NSDC_REPO_ROOT)/c-ares/inst/include
+endif
+ifneq ($(wildcard $(NSDC_REPO_ROOT)/c-ares/inst/lib),)
+LDFLAGS += -L$(NSDC_REPO_ROOT)/c-ares/inst/lib
+endif
+
+# libdom links against expat (but does not declare it as a pkg-config dependency)
+CFLAGS += -I$(KOS_PORTS)/expat/inst/include
+LDFLAGS += -L$(KOS_PORTS)/expat/inst/lib
+
+# libjpeg headers are needed during build (jpeglib.h); add kos-ports include/lib explicitly
+CFLAGS += -I$(KOS_PORTS)/libjpeg/inst/include
+LDFLAGS += -L$(KOS_PORTS)/libjpeg/inst/lib
+
+# zlib headers are needed during build (zlib.h); add kos-ports include/lib explicitly
+CFLAGS += -I$(KOS_PORTS)/zlib/inst/include
+LDFLAGS += -L$(KOS_PORTS)/zlib/inst/lib
+
+# libpng is used for PNG decoding; add kos-ports include/lib explicitly
+CFLAGS += -I$(KOS_PORTS)/libpng/inst/include
+LDFLAGS += -L$(KOS_PORTS)/libpng/inst/lib
+
+# freetype2 depends on bzip2 (-lbz2) on many builds; ensure the linker can find it
+CFLAGS += -I$(KOS_PORTS)/libbz2/inst/include
+LDFLAGS += -L$(KOS_PORTS)/libbz2/inst/lib
+
+# mbedTLS support for curl HTTPS (optional; do not force-link)
+
+# SDL 1.2 is provided by kos-ports, but may not ship pkg-config metadata.
+# Provide defaults so frontends/dreamcast/Makefile can use ?= without
+# depending on sdl-config.
+SDL_CFLAGS ?= -I$(KOS_PORTS)/SDL/inst/include -I$(KOS_PORTS)/SDL/inst/include/SDL
+SDL_LIBS   ?= -L$(KOS_PORTS)/SDL/inst/lib -lSDL
+
+export CC CXX AR RANLIB STRIP PKG_CONFIG PKG_CONFIG_PATH

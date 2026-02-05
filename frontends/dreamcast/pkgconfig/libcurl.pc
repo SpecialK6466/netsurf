@@ -1,0 +1,10 @@
+prefix=/home/dc/netsurf-dc/curl/inst
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libcurl
+Description: cURL library (KOS Dreamcast)
+Version: 8.18.0
+Libs: -L${libdir} -lcurl -lz -lpolarssl
+Cflags: -I${includedir} -DCURL_STATICLIB

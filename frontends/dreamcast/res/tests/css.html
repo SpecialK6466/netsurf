@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Layout Test</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 10px; }
+        .box {
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px 0;
+            background: #f0f0f0;
+        }
+        .pass { color: green; }
+        
+        /* Box Model Test */
+        .box-model {
+            width: 200px;
+            padding: 20px;
+            border: 5px solid #007acc;
+            margin: 10px;
+            background: #e0e0e0;
+        }
+        
+        /* Float Test */
+        .float-container { overflow: auto; background: #ddd; padding: 10px; }
+        .float-left { float: left; width: 100px; height: 100px; background: #007acc; color: white; padding: 10px; margin: 5px; }
+        .float-right { float: right; width: 100px; height: 100px; background: #cc7a00; color: white; padding: 10px; margin: 5px; }
+        .clear { clear: both; }
+        
+        /* Positioning Test */
+        .pos-container { position: relative; height: 150px; background: #eee; border: 1px solid #999; }
+        .pos-relative { position: relative; top: 10px; left: 10px; background: #007acc; color: white; padding: 10px; display: inline-block; }
+        .pos-absolute { position: absolute; bottom: 10px; right: 10px; background: #cc0000; color: white; padding: 10px; }
+        
+        /* Display Types */
+        .inline { display: inline; background: #ffcccc; padding: 5px; }
+        .inline-block { display: inline-block; background: #ccffcc; padding: 10px; width: 100px; text-align: center; }
+        .block { display: block; background: #ccccff; padding: 10px; margin: 5px 0; }
+        
+        /* Colors */
+        .color-box { display: inline-block; width: 50px; height: 50px; margin: 5px; }
+        .red { background: red; }
+        .green { background: green; }
+        .blue { background: blue; }
+        .hex { background: #ff6600; }
+        .rgb { background: rgb(128, 0, 128); }
+        
+        /* Borders */
+        .border-solid { border: 3px solid black; padding: 10px; margin: 5px; display: inline-block; }
+        .border-dashed { border: 3px dashed #007acc; padding: 10px; margin: 5px; display: inline-block; }
+        .border-dotted { border: 3px dotted #cc0000; padding: 10px; margin: 5px; display: inline-block; }
+        .border-radius { border: 3px solid #333; border-radius: 10px; padding: 10px; margin: 5px; display: inline-block; }
+        
+        /* Text Styling */
+        .text-left { text-align: left; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-shadow { text-shadow: 2px 2px 4px #666; }
+        .bg-gradient { background: linear-gradient(to right, #007acc, #00cc7a); color: white; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>CSS Layout Test</h1>
+    <p><a href="index.html">&larr; Back to Test Index</a></p>
+    
+    <h2>Box Model</h2>
+    <div class="box-model">
+        Width: 200px<br>
+        Padding: 20px<br>
+        Border: 5px<br>
+        Margin: 10px
+    </div>
+    <p>Total width should be: 200 + 40 + 10 = 250px (plus margin)</p>
+    
+    <h2>Floats</h2>
+    <div class="float-container">
+        <div class="float-left">Float Left</div>
+        <div class="float-right">Float Right</div>
+        <p>This text should flow between the floated elements. The container should expand to contain all floated children.</p>
+        <div class="clear"></div>
+    </div>
+    
+    <h2>Positioning</h2>
+    <div class="pos-container">
+        <div class="pos-relative">Relative (+10, +10)</div>
+        <div class="pos-absolute">Absolute (bottom-right)</div>
+    </div>
+    
+    <h2>Display Types</h2>
+    <p>
+        <span class="inline">Inline 1</span>
+        <span class="inline">Inline 2</span>
+        <span class="inline">Inline 3</span>
+    </p>
+    <p>
+        <span class="inline-block">Inline-Block 1</span>
+        <span class="inline-block">Inline-Block 2</span>
+    </p>
+    <div class="block">Block 1</div>
+    <div class="block">Block 2</div>
+    
+    <h2>Colors</h2>
+    <div class="color-box red"></div>
+    <div class="color-box green"></div>
+    <div class="color-box blue"></div>
+    <div class="color-box hex"></div>
+    <div class="color-box rgb"></div>
+    <p>Red, Green, Blue, Hex #ff6600, RGB(128,0,128)</p>
+    
+    <h2>Borders</h2>
+    <span class="border-solid">Solid</span>
+    <span class="border-dashed">Dashed</span>
+    <span class="border-dotted">Dotted</span>
+    <span class="border-radius">Rounded</span>
+    
+    <h2>Text Alignment</h2>
+    <div class="box text-left">Left aligned text</div>
+    <div class="box text-center">Center aligned text</div>
+    <div class="box text-right">Right aligned text</div>
+    
+    <h2>Advanced CSS</h2>
+    <p class="text-shadow" style="font-size: 24px;">Text with shadow</p>
+    <div class="bg-gradient">Linear gradient background</div>
+    
+    <h2>Overflow</h2>
+    <div style="width: 200px; height: 60px; overflow: auto; border: 1px solid #333; padding: 5px;">
+        This is a scrollable container. It has more content than fits in the visible area.
+        You should be able to scroll within this box to see all the content.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </div>
+    
+    <p class="pass">✓ If layouts, colors, and positioning look correct, CSS rendering works!</p>
+</body>
+</html>

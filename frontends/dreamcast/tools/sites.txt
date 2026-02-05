@@ -1,0 +1,7 @@
+# Offline site scrape list for NetSurf Dreamcast romdisk
+# Format: <name> <url>
+# Keep these to lightweight, mostly-static pages. Prefer plain HTTP where possible.
+
+wikipedia https://en.wikipedia.org/
+bbc https://www.bbc.com/
+

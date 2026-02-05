@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Images Test</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 10px; }
+        .image-box {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: top;
+        }
+        .image-box img { max-width: 150px; height: auto; }
+        .image-box .caption { font-size: 12px; color: #666; margin-top: 5px; }
+        .pass { color: green; }
+        .note { background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Images Test</h1>
+    <p><a href="index.html">&larr; Back to Test Index</a></p>
+    
+    <div class="note">
+        <strong>Note:</strong> This page tests image rendering using PNG data URIs. Inline SVG is not supported.
+    </div>
+    
+    <h2>PNG Images (Data URI)</h2>
+    <p>Small colored squares as base64-encoded PNGs:</p>
+    
+    <div class="image-box">
+        <!-- 32x32 red PNG -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJ0lEQVR42u3NsQkAAAjAsP7/tF7hIASyp6lTCQQCgUAgEAgEgi/BAjLD/C5w/SM9AAAAAElFTkSuQmCC" alt="red" width="32" height="32">
+        <div class="caption">Red 32x32</div>
+    </div>
+    
+    <div class="image-box">
+        <!-- 32x32 green PNG -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJklEQVR42u3NsQkAAAjAsP7/tF7hIASyp6ZbAoFAIBAIBAKB4EuwNof8Lqbpz1cAAAAASUVORK5CYII=" alt="green" width="32" height="32">
+        <div class="caption">Green 32x32</div>
+    </div>
+    
+    <div class="image-box">
+        <!-- 32x32 blue PNG -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJklEQVR42u3NsQkAAAjAsP7/tF7hIASyp5pjAoFAIBAIBAKB4EmwOkv8Lom8x/sAAAAASUVORK5CYII=" alt="blue" width="32" height="32">
+        <div class="caption">Blue 32x32</div>
+    </div>
+    
+    <h2>GIF Image</h2>
+    <p>Simple 8x8 checkerboard GIF:</p>
+    <div class="image-box">
+        <!-- 8x8 checkerboard GIF scaled up -->
+        <img src="data:image/gif;base64,R0lGODlhCAAIAIABAAAAAP///yH5BAEKAAEALAAAAAAIAAgAAAINjI8Bya2wnINUMopZAQA7" alt="checkerboard" width="64" height="64" style="image-rendering: pixelated;">
+        <div class="caption">GIF 8x8 (scaled 64px)</div>
+    </div>
+    
+    <h2>Image Sizing</h2>
+    <p>Same image displayed at different sizes:</p>
+    
+    <div class="image-box">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJ0lEQVR42u3NsQkAAAjAsP7/tF7hIASyp6lTCQQCgUAgEAgEgi/BAjLD/C5w/SM9AAAAAElFTkSuQmCC" alt="red" width="16" height="16">
+        <div class="caption">16x16</div>
+    </div>
+    
+    <div class="image-box">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJ0lEQVR42u3NsQkAAAjAsP7/tF7hIASyp6lTCQQCgUAgEAgEgi/BAjLD/C5w/SM9AAAAAElFTkSuQmCC" alt="red" width="32" height="32">
+        <div class="caption">32x32</div>
+    </div>
+    
+    <div class="image-box">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJ0lEQVR42u3NsQkAAAjAsP7/tF7hIASyp6lTCQQCgUAgEAgEgi/BAjLD/C5w/SM9AAAAAElFTkSuQmCC" alt="red" width="64" height="64">
+        <div class="caption">64x64</div>
+    </div>
+    
+    <h2>Broken Image</h2>
+    <p>This tests alt text display for missing images:</p>
+    <img src="nonexistent.png" alt="[Missing Image - Alt Text Should Show]" width="200" height="50">
+    
+    <h2>Image Alignment</h2>
+    <p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJklEQVR42u3NsQkAAAjAsP7/tF7hIASyp5pjAoFAIBAIBAKB4EmwOkv8Lom8x/sAAAAASUVORK5CYII=" alt="blue" width="24" height="24" style="vertical-align: top;"> Top aligned
+    </p>
+    <p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJklEQVR42u3NsQkAAAjAsP7/tF7hIASyp5pjAoFAIBAIBAKB4EmwOkv8Lom8x/sAAAAASUVORK5CYII=" alt="blue" width="24" height="24" style="vertical-align: middle;"> Middle aligned
+    </p>
+    <p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAJklEQVR42u3NsQkAAAjAsP7/tF7hIASyp5pjAoFAIBAIBAKB4EmwOkv8Lom8x/sAAAAASUVORK5CYII=" alt="blue" width="24" height="24" style="vertical-align: bottom;"> Bottom aligned
+    </p>
+    
+    <h2>NetSurf Logo</h2>
+    <p>Built-in about:logo resource:</p>
+    <img src="about:logo" alt="NetSurf Logo">
+    
+    <p class="pass">✓ If you can see colored squares and the NetSurf logo, image rendering works!</p>
+</body>
+</html>

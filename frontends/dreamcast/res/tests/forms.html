@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms Test</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 10px; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+        textarea, select {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #007acc;
+            outline: none;
+        }
+        button, input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #007acc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #005a9e; }
+        .hint { color: #666; font-size: 12px; margin-top: 3px; }
+        .pass { color: green; }
+        fieldset { border: 2px solid #ccc; padding: 15px; margin: 15px 0; }
+        legend { font-weight: bold; padding: 0 10px; }
+    </style>
+</head>
+<body>
+    <h1>Forms &amp; Input Test</h1>
+    <p><a href="index.html">&larr; Back to Test Index</a></p>
+    
+    <p><strong>Press Y to open the on-screen keyboard!</strong></p>
+    
+    <form action="#" method="get">
+        <h2>Text Inputs</h2>
+        
+        <div class="form-group">
+            <label for="name">Text Input:</label>
+            <input type="text" id="name" name="name" placeholder="Type your name here">
+            <div class="hint">Click here and press Y for keyboard</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email Input:</label>
+            <input type="email" id="email" name="email" placeholder="email@example.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="url">URL Input:</label>
+            <input type="url" id="url" name="url" placeholder="https://example.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password Input:</label>
+            <input type="password" id="password" name="password" placeholder="Secret password">
+        </div>
+        
+        <div class="form-group">
+            <label for="search">Search Input:</label>
+            <input type="search" id="search" name="search" placeholder="Search...">
+        </div>
+        
+        <h2>Textarea</h2>
+        <div class="form-group">
+            <label for="message">Multi-line Text:</label>
+            <textarea id="message" name="message" rows="4" placeholder="Type a longer message here..."></textarea>
+        </div>
+        
+        <h2>Selection Controls</h2>
+        
+        <fieldset>
+            <legend>Checkboxes</legend>
+            <label><input type="checkbox" name="opts" value="a"> Option A</label><br>
+            <label><input type="checkbox" name="opts" value="b" checked> Option B (pre-checked)</label><br>
+            <label><input type="checkbox" name="opts" value="c"> Option C</label>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Radio Buttons</legend>
+            <label><input type="radio" name="choice" value="1"> Choice 1</label><br>
+            <label><input type="radio" name="choice" value="2" checked> Choice 2 (default)</label><br>
+            <label><input type="radio" name="choice" value="3"> Choice 3</label>
+        </fieldset>
+        
+        <div class="form-group">
+            <label for="console">Dropdown Select:</label>
+            <select id="console" name="console">
+                <option value="">-- Select a console --</option>
+                <option value="dc">Dreamcast</option>
+                <option value="ps2">PlayStation 2</option>
+                <option value="gc">GameCube</option>
+                <option value="xbox">Xbox</option>
+            </select>
+        </div>
+        
+        <h2>Buttons</h2>
+        <div class="form-group">
+            <button type="button">Regular Button</button>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </div>
+        
+        <h2>Other Inputs</h2>
+        <div class="form-group">
+            <label for="range">Range Slider:</label>
+            <input type="range" id="range" name="range" min="0" max="100" value="50">
+        </div>
+        
+        <div class="form-group">
+            <label for="color">Color Picker:</label>
+            <input type="color" id="color" name="color" value="#007acc">
+        </div>
+    </form>
+    
+    <p class="pass">✓ If you can interact with form elements and type text, form handling works!</p>
+</body>
+</html>

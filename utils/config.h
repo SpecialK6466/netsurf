@@ -145,7 +145,7 @@ char *realpath(const char *path, char *resolved_path);
 #endif
 
 #define HAVE_MMAP
-#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__))
+#if (defined(_WIN32) || defined(__riscos__) || defined(__HAIKU__) || defined(__BEOS__) || defined(__amigaos4__) || defined(__AMIGA__) || defined(__MINT__) || defined(__DREAMCAST__))
 #undef HAVE_MMAP
 #endif
 
@@ -195,6 +195,8 @@ char *realpath(const char *path, char *resolved_path);
     	/* Not even BONE has it. */
     	#define NO_IPV6 1
     #endif
+#elif defined(__DREAMCAST__)
+    /* KOS does not have mmap */
 #else
     /* We're likely to have a working mmap() */
     #define WITH_MMAP

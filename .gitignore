@@ -25,3 +25,9 @@ NetSurf
 core
 nsfb-*
 build
+
+# Dreamcast build artifacts
+netsurf-dreamcast.elf
+netsurf-dreamcast.elf.bin
+netsurf-dreamcast.elf.map
+netsurf-dreamcast.elf.sym

@@ -609,4 +609,14 @@ void fbtk_enable_oskb(fbtk_widget_t *widget);
  */
 void map_osk(void);
 
+/**
+ * check if the osk is currently visible.
+ */
+bool is_osk_visible(void);
+
+/**
+ * toggle the osk visibility.
+ */
+void toggle_osk(void);
+
 #endif

@@ -192,6 +192,29 @@ map_osk(void)
 	fbtk_set_mapping(osk, true);
 }
 
+/* exported function documented in fbtk.h */
+bool
+is_osk_visible(void)
+{
+	if (osk == NULL)
+		return false;
+	return osk->mapped;
+}
+
+/* exported function documented in fbtk.h */
+void
+toggle_osk(void)
+{
+	if (osk == NULL)
+		return;
+	if (osk->mapped) {
+		fbtk_set_mapping(osk, false);
+	} else {
+		fbtk_set_zorder(osk, INT_MIN);
+		fbtk_set_mapping(osk, true);
+	}
+}
+
 /*
  * Local Variables:
  * c-basic-offset:8

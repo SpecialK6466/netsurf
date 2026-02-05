@@ -1,0 +1,55 @@
+# Defaults for the NetSurf Dreamcast frontend.
+#
+# Resources and fonts live on the romdisk at /rd
+
+NETSURF_USE_FREETYPE2 := YES
+NETSURF_USE_ROSPRITE  := YES
+NETSURF_USE_NSSVG     := YES
+NETSURF_USE_UTF8PROC  := NO
+NETSURF_USE_DUKTAPE   := YES
+NETSURF_USE_CURL      := YES
+NETSURF_USE_OPENSSL   := NO
+
+# Dreamcast-only: keep network init optional to preserve heap.
+# Set NETSURF_DC_ENABLE_NET=1 to enable INIT_NET.
+NETSURF_DC_ENABLE_NET ?= 1
+
+# Dreamcast-only: DNS shim toggle.
+# When enabled, the build links dns_shim.c and wraps libc resolver calls so
+# libcurl can resolve hostnames reliably on KOS/newlib.
+NETSURF_DC_ENABLE_DNS_SHIM ?= 1
+
+# Select the framebuffer font backend.
+# Use freetype for scalable font rendering.
+NETSURF_FB_FONTLIB    := freetype
+
+# Resource and font locations baked into the binary
+NETSURF_FB_RESPATH        ?= /rd
+NETSURF_FB_FONTPATH       ?= /rd/fonts
+# For the freetype backend these must be filenames (not absolute paths), as the
+# framebuffer freetype loader searches for them within the compiled-in
+# resource/font search paths.
+NETSURF_FB_FONT_SANS_SERIF        ?= DejaVuSans.ttf
+NETSURF_FB_FONT_SANS_SERIF_BOLD   ?= DejaVuSans-Bold.ttf
+# Some distributions do not ship DejaVuSans oblique faces; fall back to the
+# regular/bold faces.
+NETSURF_FB_FONT_SANS_SERIF_ITALIC ?= DejaVuSans.ttf
+NETSURF_FB_FONT_SANS_SERIF_ITALIC_BOLD ?= DejaVuSans-Bold.ttf
+NETSURF_FB_FONT_SERIF             ?= DejaVuSerif.ttf
+NETSURF_FB_FONT_SERIF_BOLD        ?= DejaVuSerif-Bold.ttf
+NETSURF_FB_FONT_MONOSPACE         ?= DejaVuSansMono.ttf
+NETSURF_FB_FONT_MONOSPACE_BOLD    ?= DejaVuSansMono-Bold.ttf
+NETSURF_FB_FONT_CURSIVE           ?= DejaVuSans.ttf
+NETSURF_FB_FONT_FANTASY           ?= DejaVuSans.ttf
+
+# NOTE: Do NOT override font names with absolute host paths here.
+# The freetype loader searches for bare filenames within the compiled-in
+# NETSURF_FB_FONTPATH (/rd/fonts). Host font locations are only used by the
+# romdisk staging step (DC_HOST_FONT_DIR in the main Makefile).
+
+# Framebuffer defaults tuned for Dreamcast
+NETSURF_FB_DEFAULT_SCREEN := 640x480
+NETSURF_FB_FRONTEND       := sdl
+NETSURF_FB_BPP            := 16
+NETSURF_FB_DEFAULT_UX_THEME := default
+NETSURF_FB_HOME_URL       := file:///rd/en/welcome.html
